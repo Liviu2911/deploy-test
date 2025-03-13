@@ -1,9 +1,4 @@
-import {
-  createFileRoute,
-  Link,
-  useNavigate,
-  useSearch,
-} from "@tanstack/react-router";
+import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/post/")({
   component: RouteComponent,
@@ -12,16 +7,20 @@ export const Route = createFileRoute("/post/")({
 
 function RouteComponent() {
   const search = useSearch({ strict: false });
-  const navigate = useNavigate();
   if (search.edit) {
-    navigate({ to: "/" });
+    return (
+      <form>
+        <Link to="/post">Close</Link>
+        <h1>This is a form</h1>
+      </form>
+    );
   }
   return (
     <>
       <h1>Post</h1>
       <Link to="/about">Back</Link>
       <Link to="/post" search={{ edit: true }}>
-        Back
+        Edit
       </Link>
     </>
   );

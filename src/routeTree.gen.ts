@@ -12,12 +12,26 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as DeckIdIndexImport } from './routes/$deckId/index'
+import { Route as DeckIdStudyIndexImport } from './routes/$deckId/study/index'
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DeckIdIndexRoute = DeckIdIndexImport.update({
+  id: '/$deckId/',
+  path: '/$deckId/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DeckIdStudyIndexRoute = DeckIdStudyIndexImport.update({
+  id: '/$deckId/study/',
+  path: '/$deckId/study/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -32,6 +46,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/$deckId/': {
+      id: '/$deckId/'
+      path: '/$deckId'
+      fullPath: '/$deckId'
+      preLoaderRoute: typeof DeckIdIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/$deckId/study/': {
+      id: '/$deckId/study/'
+      path: '/$deckId/study'
+      fullPath: '/$deckId/study'
+      preLoaderRoute: typeof DeckIdStudyIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +67,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$deckId': typeof DeckIdIndexRoute
+  '/$deckId/study': typeof DeckIdStudyIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$deckId': typeof DeckIdIndexRoute
+  '/$deckId/study': typeof DeckIdStudyIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/$deckId/': typeof DeckIdIndexRoute
+  '/$deckId/study/': typeof DeckIdStudyIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/$deckId' | '/$deckId/study'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/$deckId' | '/$deckId/study'
+  id: '__root__' | '/' | '/$deckId/' | '/$deckId/study/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DeckIdIndexRoute: typeof DeckIdIndexRoute
+  DeckIdStudyIndexRoute: typeof DeckIdStudyIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DeckIdIndexRoute: DeckIdIndexRoute,
+  DeckIdStudyIndexRoute: DeckIdStudyIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +115,19 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/$deckId/",
+        "/$deckId/study/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/$deckId/": {
+      "filePath": "$deckId/index.tsx"
+    },
+    "/$deckId/study/": {
+      "filePath": "$deckId/study/index.tsx"
     }
   }
 }

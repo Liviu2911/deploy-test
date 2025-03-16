@@ -40,7 +40,7 @@ function RouteComponent() {
       >
         Create Deck
       </Link>
-      <div className="m-10 mt-24">
+      <div className="m-10 mt-24 flex flex-row gap-2">
         {data?.map((deck) => <Deck key={deck.id} deck={deck} />)}
       </div>
 

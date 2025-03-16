@@ -32,7 +32,10 @@ function RouteComponent() {
   const deck = useContext(DecksContext).filter(
     (item) => item.id.toString() === id
   )[0];
-  const cards = useContext(FlashcardsContext);
+
+  const cards = useContext(FlashcardsContext).filter(
+    (card) => card.deck.toString() === id
+  );
 
   const editDeck = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

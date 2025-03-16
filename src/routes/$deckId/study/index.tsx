@@ -1,4 +1,8 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  useNavigate,
+  useParams,
+} from "@tanstack/react-router";
 import { useContext, useEffect, useState } from "react";
 import { DecksContext, FlashcardsContext } from "../../__root";
 import Leftmenu from "../../../components/leftmenu";
@@ -8,9 +12,13 @@ export const Route = createFileRoute("/$deckId/study/")({
 });
 
 function RouteComponent() {
-  const cards = useContext(FlashcardsContext);
+  const { deckId } = useParams({ strict: false });
+  const cards = useContext(FlashcardsContext).filter(
+    (card) => card.deck.toString() === deckId!
+  );
+  console.log(deckId);
   const deck = useContext(DecksContext).filter(
-    (item) => item.id === cards[0].deck
+    (item) => item.id.toString() === deckId
   )[0];
   const [reveal, setReveal] = useState(false);
   const [order, setOrder] = useState<Record<string, string>[]>([]);

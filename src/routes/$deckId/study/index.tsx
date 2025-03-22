@@ -65,7 +65,9 @@ function RouteComponent() {
 
           {reveal && (
             <>
-              <h1 className="text-lg font-semibold">{order[0]?.back}</h1>
+              <h1 className="text-lg font-semibold max-w-[500px]">
+                {order[0]?.back}
+              </h1>
               <button
                 onClick={next}
                 className="hover:opacity-75 t3 cursor-pointer"

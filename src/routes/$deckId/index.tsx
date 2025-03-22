@@ -119,7 +119,10 @@ function RouteComponent() {
           <Label name="front">front</Label>
           <FormInput name="front" />
           <Label name="back">back</Label>
-          <FormInput name="back" />
+          <textarea
+            name="back"
+            className="py-2 px-4 rounded-lg border border-stone-200"
+          />
           <FormButton>create</FormButton>
           <Link to="/$deckId" params={{ deckId: id! }}>
             Back
@@ -135,9 +138,10 @@ function RouteComponent() {
             val={cards?.filter((card) => card.id === editcard)[0].front}
           />
           <Label name="back">back</Label>
-          <FormInput
+          <textarea
+            defaultValue={cards?.filter((card) => card.id === editcard)[0].back}
             name="back"
-            val={cards?.filter((card) => card.id === editcard)[0].back}
+            className="py-2 px-4 rounded-lg border border-stone-200"
           />
           <FormButton>save</FormButton>
           <Link to="/$deckId" params={{ deckId: id! }}>
